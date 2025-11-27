@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { RootState } from '../store/index.ts';
+import { RootState, AppDispatch } from '../store/index.ts';
 import { moveTask, reorderTasks, addTask, updateTask, deleteTask, addColumn, deleteColumn } from '../store/action.ts';
 import { TaskModal } from './task-modal.tsx';
 import { ColumnModal } from './column-modal.tsx';
@@ -11,7 +11,7 @@ import { AssigneeManager } from './assignee-manager.tsx';
 export const KanbanBoard: React.FC = () => {
   const { boardId } = useParams<{ boardId: string }>();
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const dispatch: AppDispatch = useDispatch();
   
   const boards = useSelector((state: RootState) => state.boards);
   const assignees = useSelector((state: RootState) => state.assignees);
@@ -61,7 +61,6 @@ export const KanbanBoard: React.FC = () => {
     
     if (task) {
       if (task.columnId !== targetColumnId) {
-        // Перемещение между колонками
         dispatch(moveTask({
           taskId,
           sourceColumnId: task.columnId,
@@ -69,7 +68,6 @@ export const KanbanBoard: React.FC = () => {
           destinationIndex: targetIndex
         }));
       } else {
-        // Переупорядочивание внутри колонки
         const currentTasks = getTasksForColumn(targetColumnId);
         const currentIndex = currentTasks.findIndex(t => t.id === taskId);
         
@@ -309,7 +307,6 @@ export const KanbanBoard: React.FC = () => {
                 </div>
               ))}
               
-              {/* Место для перетаскивания в конец колонки */}
               <div 
                 className="drop-zone"
                 onDragOver={(e) => handleColumnDragOver(e, column.id)}

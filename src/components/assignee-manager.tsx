@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { RootState } from '../store/index.ts';
+import { RootState, AppDispatch } from '../store/index.ts';
 import { addAssignee, deleteAssignee } from '../store/action.ts';
 
 export const AssigneeManager: React.FC = () => {
   const [newAssignee, setNewAssignee] = useState('');
   const assignees = useSelector((state: RootState) => state.assignees);
-  const dispatch = useDispatch();
+  const dispatch: AppDispatch = useDispatch();
 
   const handleAddAssignee = () => {
     if (newAssignee.trim() && !assignees.includes(newAssignee.trim())) {

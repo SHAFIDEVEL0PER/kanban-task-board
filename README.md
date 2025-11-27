@@ -25,7 +25,7 @@
 
 ```bash
 # Клонирование репозитория
-git clone <repository-url>
+git clone git@github.com:SHAFIDEVEL0PER/kanban-task-board.git
 cd kanban-board
 
 # Установка зависимостей

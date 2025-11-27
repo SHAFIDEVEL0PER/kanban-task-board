@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { RootState } from '../store/index.ts';
+import { RootState, AppDispatch } from '../store/index.ts';
 import { addBoard, deleteBoard } from '../store/action.ts';
 import { BoardModal } from './board-modal.tsx';
 
 export const BoardList: React.FC = () => {
   const boards = useSelector((state: RootState) => state.boards);
-  const dispatch = useDispatch();
+  const dispatch: AppDispatch = useDispatch();
   const [showModal, setShowModal] = useState(false);
 
   const handleAddBoard = (title: string, description: string) => {

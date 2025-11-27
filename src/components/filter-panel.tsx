@@ -1,12 +1,12 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { RootState } from '../store/index.ts';
+import { RootState, AppDispatch } from '../store/index.ts';
 import { setFilters } from '../store/action.ts';
 
 export const FilterPanel: React.FC = () => {
   const filters = useSelector((state: RootState) => state.filters);
   const assignees = useSelector((state: RootState) => state.assignees);
-  const dispatch = useDispatch();
+  const dispatch: AppDispatch = useDispatch();
 
   const handleFilterChange = (key: string, value: string) => {
     const newFilters = { ...filters, [key]: value || undefined };

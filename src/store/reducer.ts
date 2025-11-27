@@ -44,7 +44,7 @@ export const rootReducer = createReducer(initialState, (builder) => {
       const board = state.boards.find(b => b.id === state.currentBoardId);
       if (board) {
         board.tasks = board.tasks.filter(t => t.id !== action.payload);
-        // Обновляем порядок задач в колонках
+
         board.columns.forEach(column => {
           const columnTasks = board.tasks
             .filter(t => t.columnId === column.id)
@@ -61,21 +61,18 @@ export const rootReducer = createReducer(initialState, (builder) => {
       if (board) {
         const task = board.tasks.find(t => t.id === taskId);
         if (task) {
-          // Удаляем задачу из исходной колонки
+
           const sourceTasks = board.tasks.filter(t => 
             t.columnId === sourceColumnId && t.id !== taskId
           );
           
-          // Обновляем порядок в исходной колонке
           sourceTasks.forEach((t, index) => {
             t.order = index;
           });
 
-          // Добавляем задачу в целевую колонку
           task.columnId = destinationColumnId;
           const destinationTasks = board.tasks.filter(t => t.columnId === destinationColumnId);
           
-          // Вставляем задачу на нужную позицию
           destinationTasks.forEach((t, index) => {
             if (index >= destinationIndex) {
               t.order = index + 1;
@@ -98,7 +95,6 @@ export const rootReducer = createReducer(initialState, (builder) => {
           const [removed] = columnTasks.splice(startIndex, 1);
           columnTasks.splice(endIndex, 0, removed);
           
-          // Обновляем порядок
           columnTasks.forEach((task, index) => {
             task.order = index;
           });
